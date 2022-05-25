@@ -4,7 +4,6 @@ import {
   useFonts,
   Lato_400Regular,
   Lato_700Bold,
-  Lato_400Regular_Italic,
 } from '@expo-google-fonts/lato';
 
 export default function App() {
