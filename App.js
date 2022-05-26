@@ -6,11 +6,39 @@ import {
   Lato_700Bold,
 } from '@expo-google-fonts/lato';
 
-export default function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Home from "./components/home";
+import Details from "./components/details";
+import Profile from "./components/profile";
+import Liked from "./components/liked";
+
+import Colors from "./assets/colors/colors";
+
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: Colors.orange,
+        tabBarInactiveTintColor: Colors.grey,
+      }}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Liked" component={Liked}/>
+      <Tab.Screen name="Profile" component={Profile}/>
+    </Tab.Navigator>
+  );
+};
+
+const App = () => {
   let [fontsLoaded] = useFonts({
     Lato_400Regular,
     Lato_700Bold,
-    Lato_400Regular_Italic,
   });
 
   if (!fontsLoaded) {
@@ -18,22 +46,23 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Open up App.js to start working on your app! Hello</Text>
-      <StatusBar style="auto" />
-    </View>
+   <NavigationContainer>
+     <Stack.Navigator>
+       <Stack.Screen name="TabNavigator" component={TabNavigator} />
+     </Stack.Navigator>
+   </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  tabBar: {
+    backgroundColor: Colors.white,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
-  text: {
-    fontSize: 32,
-    fontFamily: "Lato_400Regular",
-  }
-});
+})
+
+
+export default App;
+
+
