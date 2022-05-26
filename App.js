@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   useFonts,
   Lato_400Regular,
   Lato_700Bold,
 } from '@expo-google-fonts/lato';
+import Entypo from "react-native-vector-icons/Entypo";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -28,9 +29,27 @@ const TabNavigator = () => {
         tabBarActiveTintColor: Colors.orange,
         tabBarInactiveTintColor: Colors.grey,
       }}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Liked" component={Liked}/>
-      <Tab.Screen name="Profile" component={Profile}/>
+      <Tab.Screen 
+        name="Home" 
+        component={Home} 
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color}) => <Entypo name="home" size={32} color={color} />
+          }} />
+      <Tab.Screen 
+        name="Liked" 
+        component={Liked} 
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color}) => <Entypo name="heart" size={32} color={color} />
+          }} />
+      <Tab.Screen 
+        name="Profile" 
+        component={Profile} 
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color}) => <MaterialCommunityIcons name="account" size={32} color={color} />
+          }} />
     </Tab.Navigator>
   );
 };
@@ -48,7 +67,8 @@ const App = () => {
   return (
    <NavigationContainer>
      <Stack.Navigator>
-       <Stack.Screen name="TabNavigator" component={TabNavigator} />
+       <Stack.Screen name="TabNavigator" component={TabNavigator} options={{headerShown: false}}  />
+       <Stack.Screen name="Details" component={Details} options={{headerShown: false}} />
      </Stack.Navigator>
    </NavigationContainer>
   );
