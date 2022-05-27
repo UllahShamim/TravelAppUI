@@ -27,10 +27,16 @@ import Colors from "../assets/colors/colors";
 const Home = ({navigation}) => {
     const renderDiscoverItem = ({item}) => {
         return (
-                <TouchableOpacity>
+                <TouchableOpacity 
+                    onPress={() => 
+                        navigation.navigate("Details", {
+                            item: item,
+                })}>
                     <ImageBackground
                         source={item.image}
-                        style={styles.discoverItem}
+                        style={[styles.discoverItem, {
+                            marginLeft: item.id === "discover-1" ? 20 : 0
+                        }]}
                         imageStyle = {styles.discoverItemImage}
                         >
                         <Text style={styles.discoverItemTitle}>{item.title}</Text>
@@ -42,6 +48,17 @@ const Home = ({navigation}) => {
                 </TouchableOpacity>        
         );
     };
+
+    const renderActivityItem = ({item}) => {
+        return (
+        <View style={[styles.activityItemWrapper, {
+            marginLeft: item.id === "activities-1" ? 20 : 0
+        }]}>
+            <Image source={item.image} style={styles.activityItemImage} />
+            <Text style={styles.activityItemTitle}>{item.title}</Text>
+        </View>
+     )
+    }
 
     return (
         <View style={styles.container}>
@@ -71,7 +88,20 @@ const Home = ({navigation}) => {
                             data={discoverData}
                             renderItem={renderDiscoverItem}
                             keyExtractor={(item) => item.id}
-                            marginHorizontal
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+                {/* Activities */}
+                <View style={styles.activitiesWrapper}>
+                    <Text style={styles.activitiesTitle}>Activities</Text>
+                    <View style={styles.activitiesItemsWrapper}>
+                        <FlatList 
+                            data={activitiesData}
+                            renderItem={renderActivityItem}
+                            keyExtractor={(item) => item.id}
+                            horizontal
                             showsHorizontalScrollIndicator={false}
                         />
                     </View>
@@ -109,10 +139,12 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     discoverTitle: {
+        marginHorizontal: 20,
         fontFamily: "Lato_700Bold",
         fontSize: 32,
     },
     discoverCategoriesWrapper: {
+        marginHorizontal: 20,
         flexDirection: "row",
         marginTop: 20,
     },
@@ -123,21 +155,62 @@ const styles = StyleSheet.create({
         color: Colors.grey,
     },
     discoverItemsWrapper: {
-    
+        paddingVertical: 20,
     },
     discoverItem: {
-        
+        width: 170,
+        height: 250,
+        justifyContent: "flex-end",
+        paddingHorizontal: 10,
+        paddingVertical: 15,
+        marginRight: 20,
     },
     discoverItemImage: {
-
+        borderRadius: 20,
     },
     discoverItemTitle: {
-
+        fontFamily: "Lato_700Bold",
+        fontSize: 18,
+        color: Colors.white,
     },
     discoverItemLocationWrapper: {
-
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 5,
     },
     discoverItemLocationText: {
+        marginLeft: 5,
+        fontFamily: "Lato_700Bold",
+        fontSize: 14,
+        color: Colors.white,
+    },
+    // Activities
+    activitiesWrapper : {
+        marginTop: 10,
+
+    },
+    activitiesTitle: {
+        marginHorizontal: 20,
+        fontFamily: "Lato_700Bold",
+        fontSize: 24,
+        color: Colors.black,
+    },
+    activitiesItemsWrapper: {
+        paddingVertical: 20,
+    },
+    activityItemWrapper: {
+        justifyContent: "flex-end",
+        alignItems: "center",
+        marginRight: 20,
+    },
+    activityItemImage: {
+        width: 36,
+    },
+    activityItemTitle: {
+        marginTop: 5,
+        fontFamily: "Lato_700Bold",
+        fontSize: 14,
+        color: Colors.grey,
 
     },
 });
